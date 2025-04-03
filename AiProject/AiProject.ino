@@ -1,100 +1,61 @@
 #include "NeuralNetworkAI.h"
-#include <MemoryFree.h>  // Include memory library for memory check
+#include <MemoryFree.h>  
 
-// Declare inputBuffer as extern in the header file
 String inputBuffer;
 
-
 void printLoadingBar(int progress) {
-  int barWidth = 50;
-  Serial.print("[");
-  int pos = (progress * barWidth) / 100;
-  for (int i = 0; i < barWidth; ++i) {
-    if (i < pos) {
-      Serial.print("=");
-    } else if (i == pos) {
-      Serial.print(">");
-    } else {
-      Serial.print(" ");
-    }
-  }
-  Serial.print("] ");
-  Serial.print(progress);
-  Serial.println("%");
+  int pos = (progress * 50) / 100;
+  Serial.print('[');
+  for (int i = 0; i < 50; ++i) Serial.print(i < pos ? '=' : (i == pos ? '>' : ' '));
+  Serial.print("] "); Serial.print(progress); Serial.println('%');
 }
 
 void printMemoryUsage() {
-  int freeMem = freeMemory();
-  int totalMem = 2048;
-  Serial.print("Memory Usage: ");
-  Serial.print(totalMem - freeMem);
-  Serial.print(" / ");
-  Serial.print(totalMem);
-  Serial.println(" bytes used.");
+  Serial.print(F("Memory Usage: "));
+  Serial.print(3072 - freeMemory());
+  Serial.println(F(" / 3072 bytes used."));
 }
 
 void setup() {
   Serial.begin(9600);
   while (!Serial);
 
-  // Display ASCII Art & Loading
-     Serial.println(F("========================================"));
-  Serial.println(F("|      ██   ██    ██    ███    ███      |"));
-  Serial.println(F("|      ██   ██    ██    ████  ████      |"));
-  Serial.println(F("|      ███████    ██    ██ ████ ██      |"));
-  Serial.println(F("|      ██   ██    ██    ██  ██  ██      |"));
-  Serial.println(F("|      ██   ██    ██    ██      ██ v2    |"));
-  Serial.println(F("|--------------------------------------|"));
-  Serial.println(F("|    Welcome to KOMVORM AI! ™          |"));
-  Serial.println(F("|   high Intelligent learning machine |"));
-  Serial.println(F("|    © 2025 PalorderSoftworks      |"));
-  Serial.println(F("|--------------------------------------|"));
-  Serial.println(F("========================================"));
+  Serial.println(F("========================================\n"
+                   "|      ██   ██    ██    ███    ███      |\n"
+                   "|      ██   ██    ██    ████  ████      |\n"
+                   "|      ███████    ██    ██ ████ ██      |\n"
+                   "|      ██   ██    ██    ██  ██  ██      |\n"
+                   "|      ██   ██    ██    ██      ██ v2   |\n"
+                   "|--------------------------------------|\n"
+                   "|    Welcome to KOMVORM AI! ™          |\n"
+                   "|   High Intelligent Learning Machine  |\n"
+                   "|    © 2025 PalorderSoftworks          |\n"
+                   "|--------------------------------------|\n"
+                   "========================================\n"));
 
   delay(5000);
-  
-  Serial.println("Booting KOMVORM! AI...");
-  delay(1000);
-  
-  // Display Memory Check and Loading Bar
-  printMemoryUsage();
-  printLoadingBar(10);  // Initial loading status
-  delay(500);
 
-  Serial.println("Checking memory...");
-  delay(1000);
-  printMemoryUsage();
-  printLoadingBar(30);
-  delay(500);
+  const char* messages[] = {
+    "Booting KOMVORM! AI...", "Checking memory...", 
+    "Initializing logic core...", "Initiating neural pathways...", 
+    "Finalizing setup...", "System Ready.", "Initiating Auto feed"
+  };
 
-  Serial.println("Initializing logic core...");
-  delay(1000);
-  printMemoryUsage();
-  printLoadingBar(50);
-  delay(500);
+  for (int i = 0; i < 6; ++i) {
+    Serial.println(messages[i]);
+    delay(1000);
+    printMemoryUsage();
+    printLoadingBar((i + 1) * 15);
+    delay(500);
+  }
 
-  Serial.println("Initiating neural pathways...");
-  delay(1000);
-  printMemoryUsage();
-  printLoadingBar(70);
-  delay(500);
-
-  Serial.println("Finalizing setup...");
-  delay(1000);
-  printMemoryUsage();
-  printLoadingBar(90);
-  delay(500);
-
-  Serial.println("System Ready.");
-  delay(1000);
-  printMemoryUsage();
-  printLoadingBar(100);
   delay(5000);
-  Serial.println("Initiating Auto feed");
+  Serial.println(messages[6]);
   delay(1000);
   autoFeed();
   delay(10000);
-  Serial.println("If your wondering why there will be no loading bar nor messages its because this is getting stored in flash memory so i guess you can test now");
+
+  Serial.println(F("If your wondering why there will be no loading bar nor messages its because this is getting stored in flash memory so i guess you can test now"));
 }
 
 void loop() {
@@ -105,8 +66,6 @@ void loop() {
         handleInput(inputBuffer);
         inputBuffer = "";
       }
-    } else {
-      inputBuffer += c;
-    }
+    } else inputBuffer += c;
   }
 }
