@@ -20,4 +20,4 @@ Contributions are welcome. Please submit pull requests with clear descriptions o
 
 ## Attribution
 
-© PalorderSoftWorksOfficial - Licensed under CC BY-NC-SA 4.0.  
+© PalorderSoftWorks - Licensed under CC BY-NC-SA 4.0.  
