@@ -1,7 +1,7 @@
 # KomVormAI-OpenSource
 
 KomVormAI-OpenSource is an AI project developed for the Arduino Uno R3. This repository is open for contributions from the community to enhance and improve its functionalities.  
-
+Note: this is made in C++ NOT C
 ## Overview
 
 KomVormAI is designed to leverage the power of Arduino Uno R3, making AI and machine learning accessible within a microcontroller environment. Contributors are encouraged to propose improvements, add new features, and optimize the codebase.  
