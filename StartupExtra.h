@@ -9,7 +9,7 @@ void printLoadingBar(int progress) {
   Serial.print("] "); Serial.print(progress); Serial.println('%');
 }
 
-const char stringInFlash[] PROGMEM = "PROGREM";
+const char stringInFlash[] PROGMEM = "";
 
 void printMemoryUsage() {
   unsigned int usedFlash = 9178, totalFlash = 32256, freeFlash = totalFlash - usedFlash;
